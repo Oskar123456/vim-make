@@ -26,9 +26,11 @@ function! Make(args)
 	cgetexpr l:out
 	let w:quickfix_title = l:title
 
-  if g:Make_quickfix_always_open == 1 || l:len > 1
-    copen
-    cc 1
+  if g:Make_quickfix_always_open == 1 || l:len > 4
+    execute "normal \<Plug>(fzf-quickfix)"
+  " elseif l:len > 3
+  "   copen
+  "   cc 1
   elseif l:len == 0
     " No output; just report success.
 		cclose
@@ -69,4 +71,3 @@ command! -nargs=? Make call Make("<args>")
 
 let g:Make_quickfix_always_open = get(g:, 'Make_quickfix_always_open', '0')
 let g:Make_loaded = 1
-
